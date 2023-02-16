@@ -15,7 +15,7 @@ table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+time, mark, audio, video, input {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -68,6 +68,7 @@ h1{
 	font-family: 'Syne';
 	font-size: 22px;
 	font-weight: 800;
+	line-height: 26px;
 	color: #B1663C
 }
 
@@ -82,7 +83,7 @@ h2{
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 30px;
-	color: #1D6154
+	color: #1D6154;
 }
 nav ul {
 	display: flex;
@@ -95,7 +96,13 @@ nav li {
 	font-size: 1.2em;
 }
 
+nav ul a {
+	text-decoration: none;
+	color: #000000;
+}
+
 li:hover {
+	cursor: pointer;
 	color: #B1663C;
 }
 #introduction {
@@ -121,10 +128,45 @@ li:hover {
 #introduction p {
 	margin-bottom: 0.5em;
 }
+
 #portfolio h2 {
 	text-align: center;
 	margin-bottom: 1em;
 }
+/*Début modélisation de classe categories et ses boutons*/
+#portfolio .categories {
+	margin-left: auto;
+	margin-right: auto;
+	width: 53%;
+	display: flex;
+	justify-content: space-between;
+}
+
+#portfolio .categories button {
+	margin-top: 20px;
+	margin-bottom: 50px;
+	padding: 8px 20px 8px 20px;
+	font-family: 'Syne';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 17px;
+	color: #1D6154;
+	border-radius: 20px;
+	outline: none;
+	border-color: #1D6154;
+	background-color: #FFFFFF;
+	border-width: 1px;
+	box-shadow: none;
+}
+
+#portfolio .categories button:hover {
+	cursor: pointer;
+	color: #FFFFFF;
+	background-color: #1D6154;
+}
+/*Fin modélisation de la class categories et ses boutons*/
+
 .gallery {
 	width: 100%;
 	display: grid;
@@ -135,8 +177,8 @@ li:hover {
 
 .gallery img {
 	width: 100%;
-
 }
+
 #contact {
 	width: 50%;
 margin: auto;
