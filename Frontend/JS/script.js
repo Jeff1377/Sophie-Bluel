@@ -17,22 +17,6 @@ async function getWorks() {
     const request = await fetch('http://localhost:5678/api/works');
     return await request.json();
 }
-/*
-let user = {
-    email: 'sophie.bluel@test.tld',
-    password: 'S0phie '
-};
-
-let response = await fetch('/article/fetch/post/user', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json;
-  },
-  body: JSON.stringify(user)
-});
-
-let result = await response.json();
-alert(result.message);*/
 
 const gallery = document.querySelector(".gallery");
 const categoriesContainer = document.querySelector(".categories");
@@ -41,7 +25,6 @@ function insertWorks(category, works) {
     gallery.innerHTML = "";
   
     works.forEach((work) => {
-        console.log(work);
         /*si je n'envoie pas de catégories, je veux tout voir, tous les works.
         ou
         si la catégorie appartient à la catégorie du work, je veux la filtrer.*/
