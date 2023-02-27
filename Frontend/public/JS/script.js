@@ -2,8 +2,8 @@ const body = document.querySelector("body");
 const backgroundModale = document.querySelector(".background_modale");
 const modale = document.querySelector(".modale");
 const modaleCross = document.querySelector(".fa-solid.fa-square-xmark");
-//const idlog = document.querySelector(".loginout");
-//const homeBack = document.querySelector(".back_home_page");
+const authButton = document.querySelector(".loginout");
+const modaleContent = document.querySelector(".modale_content");
 
 backgroundModale.addEventListener("click", function() {
     hideModale();
@@ -28,11 +28,11 @@ async function init() {
     insertWorks(null, works);
 
     if (localStorage.getItem("token")) {
-        manageAdminHomePage();
+        manageAdminHomePage(works);
     }
 };
  
-function manageAdminHomePage() {
+function manageAdminHomePage(works) {
     const upAdminBanner = document.querySelector(".edit_banner");
     const buttonChangeAdminPic = document.querySelector(".edit_user_pic");
     const buttonChangeAdminText = document.querySelector(".edit_text");
@@ -45,7 +45,7 @@ function manageAdminHomePage() {
     const buttonText = document.createElement('button');
     const buttonProjects = document.createElement('button');
 
-    //idlog.innerText = "logout";
+    authButton.innerText = "logout";
     iconeBanner.innerHTML = '<i class="fa-regular fa-pen-to-square"></i>';
     textBanner.innerText = "modifier";
     buttonBanner.innerText = "publier les changements";
@@ -71,19 +71,68 @@ function manageAdminHomePage() {
         showModale();
     });
     buttonProjects.addEventListener("click", function() {
-        showModale();
+        showModale("editProject", works);
+    });
+    
+    authButton.addEventListener("click", function(event) {
+        event.preventDefault();
+        localStorage.removeItem("token");
+        location.reload();
+    });
+};
+
+function showModale(content, works) {
+    body.classList.add("modale-on");
+
+    if (content === "editProject") {
+        insertManagingWorksInModale(works);
+    }
+};
+
+function insertManagingWorksInModale(works) {
+    const titleModale = document.createElement("h2");
+    const projectsContent = document.createElement("div");
+    const line = document.createElement("hr");
+    const addProjectButton = document.createElement("button");
+    const deleteProjectsButton = document.createElement("button");
+
+    titleModale.innerText = "Galerie photo";
+    addProjectButton.innerText = "Ajouter une photo";
+    deleteProjectsButton.innerText = "Supprimer la galerie";
+
+    projectsContent.classList.add("projects_content");
+
+    modaleContent.appendChild(titleModale);
+    
+    works.forEach(function(work) {
+        const editButton = document.createElement ("button");
+        const trash = document.createElement ("i");
+        const projectContent = document.createElement("div");
+        const image = document.createElement("img");
+
+        projectContent.classList.add("project_content");
+
+        editButton.innerText = "éditer";
+        image.crossOrigin = "anonymous";
+        image.src = work.imageUrl;
+        image.width = 100;
+        trash.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+
+        projectsContent.appendChild(projectContent);
+        projectContent.appendChild(image);
+        projectContent.appendChild(trash);
+        projectContent.appendChild(editButton);
     });
 
-    /*homeBack.addEventListener("click", function() {
-
-    });*/
+    modaleContent.appendChild(projectsContent);
+    modaleContent.appendChild(line);
+    modaleContent.appendChild(addProjectButton);
+    modaleContent.appendChild(deleteProjectsButton);
 };
 
-function showModale() {
-    body.classList.add("modale-on");
-};
 function hideModale() {
     body.classList.remove("modale-on");
+    modaleContent.innerHTML = "";
 };
 
 async function getWorks() {

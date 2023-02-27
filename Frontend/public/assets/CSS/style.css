@@ -69,15 +69,35 @@ body.modale-on .background_modale {
 }
 
 .background_modale .modale {
-	height: 300px;
-	width: 300px;
-	margin-left: -150px;
+	min-height: 300px;
+	width: 500px;
+	margin-left: -250px;
 	transform: translateY(-50%);
 	position: absolute; 
 	left: 50%;
 	top: 50%;
 	background-color: #FFFFFF;
 	border-radius: 10px;
+}
+
+.background_modale .modale .modale_content .projects_content {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.background_modale .modale .modale_content .projects_content .project_content {
+	position: relative;
+}
+
+.background_modale .modale .modale_content .projects_content .project_content i {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+}
+
+.background_modale .modale .modale_content .projects_content .project_content button {
+	display: block;
 }
 /*fin de la modale*/
 
@@ -167,7 +187,7 @@ body.modale-on .background_modale {
 
 .bloc_projets {
 	display: flex;
-	margin-left: 450px;
+	margin-left: 480px;
 }
 
 .admin_button_projects {
@@ -259,6 +279,11 @@ li:hover {
 #introduction article {
 	flex: 1
 }
+
+#introduction article .bloc_text {
+	width: 400px;
+}
+
 #introduction h2 {
 	margin-bottom: 1em;
 }
