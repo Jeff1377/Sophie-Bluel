@@ -2,6 +2,8 @@ const body = document.querySelector("body");
 const backgroundModale = document.querySelector(".background_modale");
 const modale = document.querySelector(".modale");
 const modaleCross = document.querySelector(".fa-solid.fa-square-xmark");
+//const idlog = document.querySelector(".loginout");
+//const homeBack = document.querySelector(".back_home_page");
 
 backgroundModale.addEventListener("click", function() {
     hideModale();
@@ -43,6 +45,7 @@ function manageAdminHomePage() {
     const buttonText = document.createElement('button');
     const buttonProjects = document.createElement('button');
 
+    //idlog.innerText = "logout";
     iconeBanner.innerHTML = '<i class="fa-regular fa-pen-to-square"></i>';
     textBanner.innerText = "modifier";
     buttonBanner.innerText = "publier les changements";
@@ -50,9 +53,9 @@ function manageAdminHomePage() {
     buttonText.innerHTML = '<i class="fa-regular fa-pen-to-square"></i><p>modifier</p>';
     buttonProjects.innerHTML = '<i class="fa-regular fa-pen-to-square"></i><p>modifier</p>';
 
-    buttonPic.classList.add("admin_button");
-    buttonText.classList.add("admin_button");
-    buttonProjects.classList.add("admin_button");
+    buttonPic.classList.add("admin_button_pic");
+    buttonText.classList.add("admin_button_text");
+    buttonProjects.classList.add("admin_button_projects");
 
     upAdminBanner.appendChild(iconeBanner);
     upAdminBanner.appendChild(textBanner);
@@ -70,6 +73,10 @@ function manageAdminHomePage() {
     buttonProjects.addEventListener("click", function() {
         showModale();
     });
+
+    /*homeBack.addEventListener("click", function() {
+
+    });*/
 };
 
 function showModale() {
@@ -82,7 +89,7 @@ function hideModale() {
 async function getWorks() {
     const request = await fetch('http://localhost:5678/api/works');
     return await request.json();
-}
+};
 
 const gallery = document.querySelector(".gallery");
 const categoriesContainer = document.querySelector(".categories");
