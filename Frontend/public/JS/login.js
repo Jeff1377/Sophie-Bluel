@@ -1,4 +1,4 @@
-/*instancier les éléments, formulaire et bouton dans deux variables*/
+/*instancier les élémentst, formulaire et bouton dans deux variables*/
 
 /*ajouter un evenement click pour appeller l'api avec la donnée presente dans le formulaire*/
 /*si l'api retourne le token : stocker le token, et rediriger sur la page d'accueil*/
