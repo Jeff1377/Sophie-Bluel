@@ -291,8 +291,6 @@ function insertAddWorkToModale(works, categories) {
         if (verify() == true) {
             let workData = new FormData(formulaire);
     
-            
-            
             const request = await fetch("http://localhost:5678/api/works", {
                 method: 'POST',
                 headers: { 
