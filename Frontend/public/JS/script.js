@@ -5,6 +5,9 @@ const blocModaleCross = document.querySelector(".bloc_modale_cross");
 const modaleCross = document.querySelector(".fa-sharp.fa-solid.fa-xmark.fa-2x");
 const authButton = document.querySelector(".loginout");
 const modaleContent = document.querySelector(".modale_content");
+const buttonChangeProjects = document.querySelector(".edit_projects");
+const buttonChangeAdminPic = document.querySelector(".edit_user_pic");
+const buttonChangeAdminText = document.querySelector(".edit_text");
 
 backgroundModale.addEventListener("click", function () {
     hideModale();
@@ -35,9 +38,8 @@ async function init() {
 
 function manageAdminHomePage(works, categories) {
     const upAdminBanner = document.querySelector(".edit_banner");
-    const buttonChangeAdminPic = document.querySelector(".edit_user_pic");
-    const buttonChangeAdminText = document.querySelector(".edit_text");
-    const buttonChangeProjects = document.querySelector(".edit_projects");
+    
+    
 
     const iconeBanner = document.createElement('i');
     const textBanner = document.createElement('p');
@@ -301,43 +303,19 @@ function insertAddWorkToModale(works, categories) {
             
             if (request.ok) {             
                 const result = await request.json();
-                location.href = "index.html";
+                console.log(result);
+                buttonChangeAdminPic.innerHTML = "";
+                buttonChangeAdminText.innerHTML = "";
+                buttonChangeProjects.innerHTML = "";
+                categoriesContainer.innerHTML = "";
+                init();
+                hideModale();
             } else {
                 alert("Veuillez remplir correctement les champs demandés");
             }
         }
     });    
 };
-    
-
-        
-    /*let form = document.querySelector(".modale_add_project form");
-    
-imageInput.addEventListener("click", async function(event) {
-  event.preventDefault();
-  
-  let loginData = new FormData(formulaire);
-  const data = {
-    email: loginData.get("email"),
-    password: loginData.get("password")
-  }  
-
-  const request = await fetch("http://localhost:5678/api/users/login", {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8'
-    },
-    body: JSON.stringify(data)
-  });
-  
-  if (request.ok) {
-    const result = await request.json();
-    localStorage.setItem("token", result.token);
-    location.href = "index.html";
-  } else {
-    alert("Utilisateur ou mot de passe incorrect");
-  }
-});*/
 
 async function deleteWork(content, workId) {
     const request = await fetch(`http://localhost:5678/api/works/${workId}`, {
