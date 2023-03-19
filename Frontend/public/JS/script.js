@@ -5,9 +5,6 @@ const blocModaleCross = document.querySelector(".bloc_modale_cross");
 const modaleCross = document.querySelector(".fa-sharp.fa-solid.fa-xmark.fa-2x");
 const authButton = document.querySelector(".loginout");
 const modaleContent = document.querySelector(".modale_content");
-const buttonChangeProjects = document.querySelector(".edit_projects");
-const buttonChangeAdminPic = document.querySelector(".edit_user_pic");
-const buttonChangeAdminText = document.querySelector(".edit_text");
 
 backgroundModale.addEventListener("click", function () {
     hideModale();
@@ -38,9 +35,9 @@ async function init() {
 
 function manageAdminHomePage(works, categories) {
     const upAdminBanner = document.querySelector(".edit_banner");
-    
-    
-
+    const buttonChangeProjects = document.querySelector(".edit_projects");
+    const buttonChangeAdminPic = document.querySelector(".edit_user_pic");
+    const buttonChangeAdminText = document.querySelector(".edit_text");
     const iconeBanner = document.createElement('i');
     const textBanner = document.createElement('p');
     const buttonBanner = document.createElement('button');
@@ -129,7 +126,7 @@ function insertManagingWorksInModale(works, categories) {
         projectContent.appendChild(editButton);
 
         trash.addEventListener('click', () => {
-            deleteWork(projectContent, work.id);
+            deleteWork(projectContent, work, works);
         });
     });
 
@@ -162,38 +159,6 @@ function insertAddWorkToModale(works, categories) {
     const line = document.createElement("hr");
     const validationButton = document.createElement("button");
     const iconBack = document.createElement("i");
-
-    //créer une fonction qui valide les trois champs
-    
-    function verify() {
-        validationButton.disabled = true;
-        const file = imageInput.files[0];
-
-        if (!file) {
-            return;
-        }
-
-        if (file.type !== "image/jpeg" && file.type !== "image/png") {
-            alert("Veuillez sélectionner le bon format photo");
-            return;
-        }
-        if (file.size >= 4000000) {
-            alert("Veuillez sélectionnez une photo < ou = à 4Mo");
-            return;
-        }
-
-        if (titleInput.value === "") {
-            return;
-        }
-
-        if (categorySelect.value === "") {
-            return;
-        }
-        
-        validationButton.disabled = false;
-
-        return true;
-    };
 
     iconBack.classList.add("icon_back");
     iconBack.innerHTML = '<i class="fa-solid fa-arrow-left fa-2x"></i>';
@@ -265,6 +230,7 @@ function insertAddWorkToModale(works, categories) {
             alert("Veuillez sélectionner le bon format photo");
             return;
         }
+        
         if (file.size >= 4000000) {
             alert("Veuillez sélectionnez une photo < ou = à 4Mo");
             return;
@@ -303,28 +269,61 @@ function insertAddWorkToModale(works, categories) {
             
             if (request.ok) {             
                 const result = await request.json();
-                console.log(result);
-                buttonChangeAdminPic.innerHTML = "";
-                buttonChangeAdminText.innerHTML = "";
-                buttonChangeProjects.innerHTML = "";
-                categoriesContainer.innerHTML = "";
-                init();
                 hideModale();
+                works.push(result);
+                insertWorks(null, works);
             } else {
                 alert("Veuillez remplir correctement les champs demandés");
             }
         }
-    });    
+    });  
+    
+    //créer une fonction qui valide les trois champs
+    
+    function verify() {
+        validationButton.disabled = true;
+        const file = imageInput.files[0];
+
+        if (!file) {
+            return;
+        }
+
+        if (file.type !== "image/jpeg" && file.type !== "image/png") {
+            alert("Veuillez sélectionner le bon format photo");
+            return;
+        }
+        if (file.size >= 4000000) {
+            alert("Veuillez sélectionnez une photo < ou = à 4Mo");
+            return;
+        }
+
+        if (titleInput.value === "") {
+            return;
+        }
+
+        if (categorySelect.value === "") {
+            return;
+        }
+        
+        validationButton.disabled = false;
+
+        return true;
+    };
 };
 
-async function deleteWork(content, workId) {
-    const request = await fetch(`http://localhost:5678/api/works/${workId}`, {
+
+async function deleteWork(content, work, works) {
+    const request = await fetch(`http://localhost:5678/api/works/${work.id}`, {
         headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
         method: "DELETE"
     });
 
     if (request.ok) {
         content.remove();
+        const index = works.indexOf(work);
+        works.splice(index, 1);
+        insertWorks(null, works);
+
     } else {
         alert("error");
     }
